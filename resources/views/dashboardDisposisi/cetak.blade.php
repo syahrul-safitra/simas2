@@ -133,13 +133,13 @@
                 <tr>
                     <td>Tanggal</td>
                     <td>:</td>
-                    <td>{{ $disposisi->tanggal }}</td>
+                    <td>{{ date('d-m-Y', strtotime($disposisi->tanggal)) }}</td>
                 </tr>
 
                 <tr>
                     <td>Asal Surat</td>
                     <td>:</td>
-                    <td>{{ $disposisi->suratMasuk->instansi->nama }}</td>
+                    <td>{{ $disposisi->suratMasuk->asal_surat }}</td>
                 </tr>
 
                 <tr>
@@ -151,12 +151,12 @@
                 <tr>
                     <td>Tanggal Diterima</td>
                     <td>:</td>
-                    <td>{{ $disposisi->suratMasuk->tanggal_diterima }}</td>
+                    <td>{{ date('d-m-Y', strtotime($disposisi->suratMasuk->tanggal_diterima)) }}</td>
                 </tr>
             </table>
 
             <div class="tanggal-penyelesaian" style="padding-top:10px; padding-bottom: 10px; padding-left: 10px;">
-                <p>Tanggal Penyelesaian : {{ $disposisi->tanggal_penyelesaian }}</p>
+                <p>Tanggal Penyelesaian : {{ date('d-m-Y', strtotime($disposisi->tanggal_penyelesaian)) }}</p>
             </div>
 
             <div class="main">
@@ -208,13 +208,14 @@
                         <tr>
                             <td>Tanggal</td>
                             <td>:</td>
-                            <td>{{ $disposisi->tanggal }}</td>
+                            <td>{{ date('d-m-Y', strtotime($disposisi->tanggal)) }}</td>
                         </tr>
 
                         <tr>
                             <td>Pukul</td>
                             <td>:</td>
-                            <td>{{ $disposisi->pukul }} WIB</td>
+                            {{-- <td>{{ date('h:i:s', strtotime($disposisi->pukul)) }} WIB</td> --}}
+                            <td>{{ $disposisi->pukul ? date('h:i:s', strtotime($disposisi->pukul)) : '' }} WIB</td>
                         </tr>
                     </table>
                 </div>

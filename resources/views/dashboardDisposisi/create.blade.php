@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-6 mb-3">
                 <label for="asal-surat" class="form-label">Asal Surat</label>
-                <input type="text" class="form-control" value="{{ $suratMasuk->instansi->nama }}" id="asal-surat"
+                <input type="text" class="form-control" value="{{ $suratMasuk->asal_surat }}" id="asal-surat"
                     autocomplete="off" readonly>
             </div>
         </div>
@@ -23,17 +23,17 @@
         <!-- row 2 -->
         <div class="row">
             <div class="col-lg-6 mb-3">
-                <label for="indek" class="form-label">Indek</label>
+                <label for="indek" class="form-label">Indek <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('indek_berkas') is-invalid @enderror" name="indek_berkas"
                     value="{{ @old('indek_berkas') }}" id="indek" autocomplete="off">
-                @error('indek')
+                @error('indek_berkas')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="col-lg-6 mb-3">
-                <label for="kode" class="form-label">Kode</label>
-                <input type="text" class="form-control" name="kode_klasifikasi_arsip"
-                    value="{{ @old('kode_klasifikasi_arsip') }}" id="kode">
+                <label for="kode" class="form-label">Kode Klasifikasi Arsip<span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('kode_klasifikasi_arsip') is-invalid @enderror"
+                    name="kode_klasifikasi_arsip" value="{{ @old('kode_klasifikasi_arsip') }}" id="kode">
                 @error('kode_klasifikasi_arsip')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -82,7 +82,7 @@
         <!-- row 5 -->
         <div class="row">
             <div class="col-lg-12 mb-3">
-                <label for="body" class="form-label">Isi</label>
+                <label for="body" class="form-label">Isi <span class="text-danger">*</span></label>
                 @error('isi')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -95,6 +95,7 @@
 
         <div class="row ">
             <div class="col-lg-12 mb-3">
+                <label for="" class="form-label">Disampaikan Kepada <span class="text-danger">*</span></label>
                 @error('diketahui')
                     <div class="alert alert-danger">
                         {{ 'Mohon input check-box minimal 1' }}

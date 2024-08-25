@@ -16,7 +16,7 @@ class SuratMasukController extends Controller
     {
 
         return view('dashboardSuratMasuk.index', [
-            'suratMasuks' => SuratMasuk::with('instansi')->orderByDesc('tanggal_diterima')->get(),
+            'suratMasuks' => SuratMasuk::latest()->get(),
         ]);
     }
 
@@ -25,10 +25,9 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        $dataStatus = ['diketahui', 'dihadiri', 'ditindak lanjuti'];
-        $dataSifat = ['biasa', 'rahasia', 'sangat rahasia'];
+        $dataStatus = ['diketahui', 'dihadiri', 'ditindak lanjuti(proses)'];
+        $dataSifat = ['biasa', 'penting', 'rahasia'];
         return view('dashboardSuratMasuk.create', [
-            'instansis' => Instansi::all(),
             'statuss' => $dataStatus,
             'sifats' => $dataSifat
         ]);
@@ -47,8 +46,8 @@ class SuratMasukController extends Controller
             'sifat' => 'required',
             'isi_ringkas' => 'required',
             'status' => 'required',
-            'instansi_id' => 'required',
-            'file' => 'file|max:3072'
+            'asal_surat' => 'required',
+            'file' => 'required|max:3072'
         ]);
 
         // get file : 
@@ -84,12 +83,11 @@ class SuratMasukController extends Controller
      */
     public function edit(SuratMasuk $suratmasuk)
     {
-        $dataStatus = ['diketahui', 'dihadiri', 'ditindak lanjuti'];
-        $dataSifat = ['biasa', 'rahasia', 'sangat rahasia'];
 
+        $dataStatus = ['diketahui', 'dihadiri', 'ditindak lanjuti(proses)'];
+        $dataSifat = ['biasa', 'penting', 'rahasia'];
         return view('dashboardSuratMasuk.edit', [
             'suratMasuk' => $suratmasuk,
-            'instansis' => Instansi::all(),
             'statuss' => $dataStatus,
             'sifats' => $dataSifat
         ]);
@@ -105,12 +103,13 @@ class SuratMasukController extends Controller
         $rules = [
             'tanggal_surat' => 'required',
             'tanggal_diterima' => 'required',
+            'asal_surat' => 'required',
             'status' => 'required',
-            'instansi_id' => 'required',
             'sifat' => 'required',
             'isi_ringkas' => 'required',
             'file' => 'file|max:3072'
         ];
+
 
         // cek apakah no surat diubah : 
         if ($request->no_surat != $suratmasuk->no_surat) {
@@ -182,7 +181,7 @@ class SuratMasukController extends Controller
     {
 
         return view('dashboardSuratMasuk.cetak', [
-            'suratMasuks' => SuratMasuk::with('instansi')->whereBetween('tanggal_diterima', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('tanggal_diterima', 'ASC')->get(),
+            'suratMasuks' => SuratMasuk::whereBetween('tanggal_diterima', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('tanggal_diterima', 'ASC')->get(),
             'tanggal_awal' => $request->tanggal_awal,
             'tanggal_akhir' => $request->tanggal_akhir
         ]);

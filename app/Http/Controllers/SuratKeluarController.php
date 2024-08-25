@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
-use App\Models\Instansi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -16,9 +15,8 @@ class SuratKeluarController extends Controller
      */
     public function index()
     {
-        // dd(SuratKeluar::all());
         return view('dashboardSuratKeluar.index', [
-            'suratKeluars' => SuratKeluar::latest()->paginate(20),
+            'suratKeluars' => SuratKeluar::latest()->get(),
         ]);
     }
 
@@ -27,24 +25,19 @@ class SuratKeluarController extends Controller
      */
     public function create()
     {
-
-        // dd();
-        $sifat = ['biasa', 'rahasia', 'sangat rahasia'];
+        $sifat = ['biasa', 'penting', 'rahasia'];
         return view('dashboardSuratKeluar.create', [
-            'sifats' => $sifat,
-            'suratMasuks' => SuratMasuk::where('status', 'ditindak lanjuti')
-                ->where('keadaan', 'proses')->get(),
-            'instansis' => Instansi::all()
+            'sifats' => $sifat
         ]);
     }
 
     public function replyLetter()
     {
 
-        $sifat = ['biasa', 'rahasia', 'sangat rahasia'];
+        $sifat = ['biasa', 'penting', 'rahasia'];
         return view('dashboardSuratKeluar.replyLetter', [
             'sifats' => $sifat,
-            'suratMasuks' => SuratMasuk::where('status', 'ditindak lanjuti')
+            'suratMasuks' => SuratMasuk::where('status', 'ditindak lanjuti(proses)')
                 ->where('keadaan', 'proses')->get()
         ]);
     }
@@ -111,12 +104,11 @@ class SuratKeluarController extends Controller
      */
     public function edit(SuratKeluar $suratkeluar)
     {
-        $sifat = ['biasa', 'rahasia', 'sangat rahasia'];
+        $sifat = ['biasa', 'penting', 'rahasia'];
 
         return view('dashboardSuratKeluar.edit', [
             'sifats' => $sifat,
             'suratKeluar' => $suratkeluar,
-            'instansis' => Instansi::all()
             // 'suratMasuks' => SuratMasuk::where('status', 'ditindak lanjuti')
             //     ->where('keadaan', 'proses')->get()
         ]);
@@ -226,14 +218,12 @@ class SuratKeluarController extends Controller
             // with() :: adalah session yang digunakan untuk mengirim pesan succes atau error saat data telah di inputkan : 
             return redirect('dashboard/suratkeluar')->with('success', 'Surat Keluar telah dihapus!');
         }
-
-
     }
 
     public function cetak(Request $request)
     {
         return view('dashboardSuratKeluar.cetak', [
-            'suratKeluars' => SuratKeluar::with('instansi')->whereBetween('tanggal_surat_keluar', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('tanggal_surat_keluar', 'DESC')->get(),
+            'suratKeluars' => SuratKeluar::whereBetween('tanggal_surat_keluar', [$request->tanggal_awal, $request->tanggal_akhir])->orderBy('tanggal_surat_keluar', 'DESC')->get(),
             'tanggal_awal' => $request->tanggal_awal,
             'tanggal_akhir' => $request->tanggal_akhir
         ]);

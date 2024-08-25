@@ -97,7 +97,8 @@
         <div class="content">
 
             <h3>Laporan Surat Masuk</h3><br>
-            <h4>Periode {{ $tanggal_awal }} - {{ $tanggal_akhir }}</h4>
+            <h4>Periode {{ date('d-m-Y', strtotime($tanggal_awal)) }} - {{ date('d-m-Y', strtotime($tanggal_akhir)) }}
+            </h4>
             <br>
 
             <table class="main" border="1" bordercollapse="collapse">
@@ -115,9 +116,9 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $suratMasuk->no_surat }}</td>
-                        <td>{{ $suratMasuk->tanggal_surat }}</td>
-                        <td>{{ $suratMasuk->instansi->nama }}</td>
-                        <td>{{ $suratMasuk->tanggal_diterima }}</td>
+                        <td>{{ date('d-m-Y', strtotime($suratMasuk->tanggal_surat)) }}</td>
+                        <td>{{ $suratMasuk->asal_surat }}</td>
+                        <td>{{ date('d-m-Y', strtotime($suratMasuk->tanggal_diterima)) }}</td>
                         <td>{{ $suratMasuk->sifat }}</td>
                         <td>{{ $suratMasuk->isi_ringkas }}</td>
                         <td>{{ $suratMasuk->status }}</td>

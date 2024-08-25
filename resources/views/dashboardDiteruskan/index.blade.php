@@ -43,7 +43,7 @@
                     <tr>
                         <th scope="row" style="width: 30%">Asal Surat</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{{ $suratMasuk->instansi->nama }}</td>
+                        <td style="width: 65%">{{ $suratMasuk->asal_surat }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal Surat</th>

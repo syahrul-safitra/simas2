@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             'level' => 'master',
             'no_wa' => '082387120434',
             'email' => 'kasubag@gmail.com',
-            'password' => 'kasubag12'
+            'password' => 'kasubag12',
+            'permission' => 0
         ]);
 
         \App\Models\User::create([

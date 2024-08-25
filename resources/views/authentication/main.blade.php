@@ -31,7 +31,8 @@
 
 
         <!-- Sign In Start -->
-        <div class="container-fluid">
+        <div class="container-fluid bg-image"
+            style="background-image: url({{ asset('img/bg_uin2.jpeg') }});witdh:100%;height:100hv;background-size: cover;">
             @yield('container')
         </div>
         <!-- Sign In End -->

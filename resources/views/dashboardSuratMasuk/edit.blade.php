@@ -4,7 +4,10 @@
     <div class="row g-4">
         <div class="col-sm-12">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Create new incoming mail</h6>
+                <h6 class="mb-4">Edit Surat Masuk</h6>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
                 <form action="{{ url('dashboard/suratmasuk/' . $suratMasuk->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -21,28 +24,10 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="instansi" class="form-label">Instansi</label>
-                            <select class="form-select @error('instansi_id') is-invalid @enderror" name="instansi_id"
-                                id="instansi">
-                                @if (@old('instansi_id'))
-                                    @foreach ($instansis as $instansi)
-                                        @if (@old('instansi_id') == $instansi->id)
-                                            <option value="{{ $instansi->id }}" selected>{{ $instansi->nama }}</option>
-                                        @else
-                                            <option value="{{ $instansi->id }}">{{ $instansi->nama }}</option>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    @foreach ($instansis as $instansi)
-                                        @if ($instansi->id == $suratMasuk->instansi_id)
-                                            <option value="{{ $instansi->id }}" selected>{{ $instansi->nama }}</option>
-                                        @else
-                                            <option value="{{ $instansi->id }}">{{ $instansi->nama }}</option>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('instansi_id')
+                            <label for="asal_surat" class="form-label">Asal Surat</label>
+                            <input type="text" class="form-control @error('asal_surat') is-invalid @enderror"
+                                name="asal_surat" value="{{ old('asal_surat', $suratMasuk->asal_surat) }}">
+                            @error('asal_surat')
                                 <div class="invalid-feedback text-red">{{ $message }}</div>
                             @enderror
                         </div>
@@ -61,10 +46,9 @@
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="tanggal-diterima" class="form-label">Tanggal Diterima</label>
-                            <input type="datetime-local"
-                                class="form-control @error('tanggal_diterima') is-invalid @enderror" name="tanggal_diterima"
-                                value="{{ @old('tanggal_diterima', $suratMasuk->tanggal_diterima) }}"
-                                id="tanggal-diterima">
+                            <input type="date" class="form-control @error('tanggal_diterima') is-invalid @enderror"
+                                name="tanggal_diterima"
+                                value="{{ @old('tanggal_diterima', $suratMasuk->tanggal_diterima) }}" id="tanggal-diterima">
                             @error('tanggal_diterima')
                                 <div class="invalid-feedback text-red">{{ $message }}</div>
                             @enderror
@@ -140,9 +124,12 @@
                         </div>
                         <div class="col-lg-6 mb-3">
                             <label for="file" class="form-label">File</label>
-                            <input class="form-control" type="file" name="file" id="file"
-                                accept="application/pdf">
+                            <input class="form-control" type="file" name="file" id="file">
+
                         </div>
+                        @error('file')
+                            <p class="text-red" style="color: red">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <a href="{{ url('dashboard/suratmasuk') }}" class="btn btn-warning me-2">Batal</a>

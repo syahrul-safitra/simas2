@@ -1,10 +1,8 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardKasubagController;
-use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\DiteruskanController;
@@ -25,11 +23,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [DashboardKasubagController::class, 'index'])->middleware(['auth', 'master']);
-Route::get('/instansi', [DashboardKasubagController::class, 'instansi'])->middleware(['auth', 'master']);
-
-// Resource instansi Controller : 
-Route::resource('dashboard/instansi', InstansiController::class)->middleware(['auth', 'master']);
-Route::get('dashboard/instansis/delete/{instansi}', [InstansiController::class, 'delete'])->middleware('auth');
 
 // Resource SuratMasuk Controller :
 Route::resource('dashboard/suratmasuk', SuratMasukController::class)->middleware('auth');
@@ -47,7 +40,7 @@ Route::get('dashboard/suratkeluars/replyLetter', [SuratKeluarController::class, 
 Route::post('dashboard/suratkeluars/cetak', [SuratKeluarController::class, 'cetak']);
 
 // Resource Diteruskan Controller :
-Route::resource('dashboard/diteruskan', DiteruskanController::class)->middleware(['auth', 'master']);
+Route::resource('dashboard/diteruskan', DiteruskanController::class)->middleware(['auth', 'master'])->except('index');
 Route::get('dashboard/diteruskan/create/{id}', [DiteruskanController::class, 'create'])->middleware(['auth', 'master']);
 
 Route::get('dashboard/diteruskans/delete/{diteruskan}', [DiteruskanController::class, 'delete'])->middleware('auth');

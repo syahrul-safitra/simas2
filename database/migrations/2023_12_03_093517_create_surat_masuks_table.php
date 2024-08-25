@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,18 +13,16 @@ return new class extends Migration
         Schema::create('surat_masuks', function (Blueprint $table) {
             $table->id();
             $table->string('no_surat')->unique();
+            $table->string('asal_surat');
             $table->date('tanggal_surat');
-            $table->dateTime('tanggal_diterima');
-            $table->enum('sifat', ['biasa', 'rahasia', 'sangat rahasia']);
+            $table->date('tanggal_diterima');
+            $table->enum('sifat', ['biasa', 'penting', 'rahasia']);
             $table->string('isi_ringkas');
-            $table->enum('status', ['diketahui', 'dihadiri', 'ditindak lanjuti']);
-            $table->string('file');
+            $table->enum('status', ['diketahui', 'dihadiri', 'ditindak lanjuti(proses)']);
+            $table->string('file')->nullable();
             $table->enum('keadaan', ['proses', 'selesai'])->default('proses');
             $table->timestamps();
 
-            $table->foreignId('instansi_id')->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
         });
     }
 

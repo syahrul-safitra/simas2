@@ -162,16 +162,16 @@ class DisposisiController extends Controller
         return redirect('dashboard/disposisi/' . $suratMasukId)->with('success', 'Disposisi has been deleted!');
 
     }
-    public function delete(Disposisi $disposisi)
-    {
-        $suratMasukId = $disposisi->surat_masuk_id;
+    // public function delete(Disposisi $disposisi)
+    // {
+    //     $suratMasukId = $disposisi->surat_masuk_id;
 
-        // hapus data dari db : 
-        Disposisi::destroy($disposisi->id);
+    //     // hapus data dari db : 
+    //     Disposisi::destroy($disposisi->id);
 
-        // with() :: adalah session yang digunakan untuk mengirim pesan succes atau error saat data telah di inputkan : 
-        return redirect('dashboard/disposisi/' . $suratMasukId)->with('success', 'Disposisi has been deleted!');
-    }
+    //     // with() :: adalah session yang digunakan untuk mengirim pesan succes atau error saat data telah di inputkan : 
+    //     return redirect('dashboard/disposisi/' . $suratMasukId)->with('success', 'Disposisi has been deleted!');
+    // }
 
     // cetak disposisi : 
     public function cetak(Disposisi $disposisi)

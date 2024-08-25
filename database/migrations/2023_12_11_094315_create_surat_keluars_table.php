@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('kode_klasifikasi')->unique();
             $table->date('tanggal_surat_keluar');
-            $table->enum('sifat', ['biasa', 'rahasia', 'sangat rahasia']);
+            $table->enum('sifat', ['biasa', 'penting', 'rahasia']);
             $table->string('isi');
             $table->string('file');
             $table->string('tujuan');

@@ -97,7 +97,8 @@
         <div class="content">
 
             <h3>Laporan Surat Keluar</h3><br>
-            <h4>Periode {{ $tanggal_awal }} - {{ $tanggal_akhir }}</h4>
+            <h4>Periode {{ date('d-m-Y', strtotime($tanggal_awal)) }} - {{ date('d-m-Y', strtotime($tanggal_akhir)) }}
+            </h4>
             <br>
 
             <table class="main" border="1" bordercollapse="collapse">
@@ -113,9 +114,9 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $suratKeluar->kode_klasifikasi }}</td>
-                        <td>{{ $suratKeluar->tanggal_surat_keluar }}</td>
+                        <td>{{ date('d-m-Y', strtotime($suratKeluar->tanggal_surat_keluar)) }}</td>
                         <td>{{ $suratKeluar->isi }}</td>
-                        <td>{{ $suratKeluar->SuratMasuk ? $suratKeluar->SuratMasuk->instansi->nama : $suratKeluar->instansi->nama }}
+                        <td>{{ $suratKeluar->SuratMasuk ? $suratKeluar->SuratMasuk->asal_surat : $suratKeluar->tujuan }}
                         </td>
                         <td>{{ $suratKeluar->sifat }}</td>
                     </tr>

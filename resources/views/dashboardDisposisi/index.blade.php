@@ -51,7 +51,7 @@
                     <tr>
                         <th scope="row" style="width: 30%">Asal Surat</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{{ $suratMasuk->instansi->nama }}</td>
+                        <td style="width: 65%">{{ $suratMasuk->asal_surat }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal Surat</th>
@@ -91,7 +91,13 @@
                     <tr>
                         <th scope="row" style="width: 30%">Pukul</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{!! $disposisi ? $disposisi->pukul->format('H:i') : '' !!}</td>
+                        <td style="width: 65%">
+                            @if ($disposisi && $disposisi->pukul)
+                                {{-- @if ($disposisi->pukul) --}}
+                                {{ $disposisi->pukul->format('H:i') }}
+                                {{-- @endif --}}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Diketahui</th>

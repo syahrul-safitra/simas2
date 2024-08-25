@@ -10,7 +10,8 @@
                     <!-- row 1 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="kode" class="form-label">Kode Klasifikasi</label>
+                            <label for="kode" class="form-label">Kode Klasifikasi <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('kode_klasifikasi') is-invalid @enderror"
                                 name="kode_klasifikasi" value="{{ @old('kode_klasifikasi') }}" id="kode"
                                 autocomplete="off">
@@ -19,7 +20,8 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="tanggal-surat" class="form-label">Tanggal Surat Keluar</label>
+                            <label for="tanggal-surat" class="form-label">Tanggal Surat Keluar <span
+                                    class="text-danger">*</span></label>
                             <input type="date" class="form-control @error('tanggal_surat_keluar') is-invalid @enderror"
                                 name="tanggal_surat_keluar" value="{{ @old('tanggal_surat_keluar') }}" id="tanggal-surat">
                             @error('tanggal_surat_keluar')
@@ -31,7 +33,7 @@
                     <!-- row 2 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="sifat" class="form-label">Sifat</label>
+                            <label for="sifat" class="form-label">Sifat <span class="text-danger">*</span></label>
                             <select class="form-select @error('sifat') is-invalid @enderror" name="sifat" id="sifat">
                                 @if (@old('sifat'))
                                     @foreach ($sifats as $sifat)
@@ -75,7 +77,8 @@
                         </div>
 
                         <div class="col-lg-6 mb-3">
-                            <label for="tindak-lanjut" class="form-label">Tindak Lanjut Surat Dari</label>
+                            <label for="tindak-lanjut" class="form-label">Tindak Lanjut Surat Dari <span
+                                    class="text-danger">*</span></label>
                             <select class="form-select @error('surat_masuk_id') is-invalid @enderror" name="surat_masuk_id"
                                 id="tindak-lanjut">
                                 @if (@old('surat_masuk_id'))
@@ -95,16 +98,15 @@
                                 @endif
                             </select>
                             @error('sifat')
-                                <div class="invalid-feedback text-red">{{ $message }}</div>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="file" class="form-label">File</label>
-                            <input class="form-control" type="file" name="file" id="file"
-                                accept="application/pdf" required>
+                            <label for="file" class="form-label">File <span class="text-danger">*</span></label>
+                            <input class="form-control" type="file" name="file" id="file" required>
                         </div>
                     </div>
 

@@ -7,8 +7,8 @@ $(document).ready(function () {
    $('#surat_masuk').DataTable();
    $('#surat_keluar').DataTable();
    $('#table-instansi').DataTable();
-   $('#instansi').select2();
-   $('#tujuan').select2();
+   // $('#instansi').select2();
+   // $('#tujuan').select2();
    $('#tindak-lanjut').select2();
    
    $('.btn-delete-suratmasuk').on('click', function (e) {

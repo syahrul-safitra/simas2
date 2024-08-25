@@ -4,13 +4,13 @@
     <div class="row g-4">
         <div class="col-sm-12">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Create new incoming mail</h6>
+                <h6 class="mb-4">Buat Surat Masuk</h6>
                 <form action="{{ url('dashboard/suratmasuk') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- row 1 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="no-surat" class="form-label">No Surat</label>
+                            <label for="no-surat" class="form-label">No Surat <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('no_surat') is-invalid @enderror"
                                 name="no_surat" value="{{ @old('no_surat') }}" id="no-surat" autocomplete="off">
                             @error('no_surat')
@@ -18,25 +18,10 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="instansi" class="form-label">Instansi</label>
-                            <select class="form-select @error('instansi_id') is-invalid @enderror" name="instansi_id"
-                                id="instansi" style="width: 100%">
-                                @if (@old('instansi_id'))
-                                    @foreach ($instansis as $instansi)
-                                        @if (@old('instansi_id') == $instansi->id)
-                                            <option value="{{ $instansi->id }}" selected>{{ $instansi->nama }}</option>
-                                        @else
-                                            <option value="{{ $instansi->id }}">{{ $instansi->nama }}</option>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <option value="" selected>Pilih Instansi</option>
-                                    @foreach ($instansis as $instansi)
-                                        <option value="{{ $instansi->id }}">{{ $instansi->nama }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('instansi_id')
+                            <label for="asal_surat" class="form-label">Asal Surat <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control @error('asal_surat') is-invalid @enderror"
+                                name="asal_surat" id="asal_surat">
+                            @error('asal_surat')
                                 <div class="invalid-feedback text-red">{{ $message }}</div>
                             @enderror
                         </div>
@@ -45,7 +30,8 @@
                     <!-- row 2 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="tanggal-surat" class="form-label">Tanggal Surat</label>
+                            <label for="tanggal-surat" class="form-label">Tanggal Surat <span
+                                    class="text-danger">*</span></label>
                             <input type="date" class="form-control @error('tanggal_surat') is-invalid @enderror"
                                 name="tanggal_surat" value="{{ @old('tanggal_surat') }}" id="tanggal-surat">
                             @error('tanggal_surat')
@@ -53,10 +39,10 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="tanggal-diterima" class="form-label">Tanggal Diterima</label>
-                            <input type="datetime-local"
-                                class="form-control @error('tanggal_diterima') is-invalid @enderror" name="tanggal_diterima"
-                                value="{{ @old('tanggal_diterima') }}" id="tanggal-diterima">
+                            <label for="tanggal-diterima" class="form-label">Tanggal Diterima <span
+                                    class="text-danger">*</span></label>
+                            <input type="date" class="form-control @error('tanggal_diterima') is-invalid @enderror"
+                                name="tanggal_diterima" value="{{ @old('tanggal_diterima') }}" id="tanggal-diterima">
                             @error('tanggal_diterima')
                                 <div class="invalid-feedback text-red">{{ $message }}</div>
                             @enderror
@@ -66,7 +52,7 @@
                     <!-- row 3 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="sifat" class="form-label">Sifat</label>
+                            <label for="sifat" class="form-label">Sifat <span class="text-danger">*</span></label>
                             <select class="form-select @error('sifat') is-invalid @enderror" name="sifat" id="sifat">
                                 @if (@old('sifat'))
                                     @foreach ($sifats as $sifat)
@@ -88,7 +74,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="isi" class="form-label">Isi Ringkas</label>
+                            <label for="isi" class="form-label">Isi Ringkas <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('isi_ringkas') is-invalid @enderror"
                                 name="isi_ringkas" value="{{ @old('isi_ringkas') }}" id="isi">
                             @error('isi_ringkas')
@@ -100,7 +86,7 @@
                     <!-- row 4 -->
                     <div class="row">
                         <div class="col-lg-6 mb-3">
-                            <label for="status" class="form-label">Status</label>
+                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                             <select class="form-select @error('status') is-invalid @enderror" name="status" id="status">
                                 @if (@old('status'))
                                     @foreach ($statuss as $status)
@@ -122,9 +108,11 @@
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-3">
-                            <label for="file" class="form-label">File</label>
-                            <input class="form-control" type="file" name="file" id="file"
-                                accept="application/pdf" required>
+                            <label for="file" class="form-label">File <span class="text-danger">*</span></label>
+                            <input class="form-control" type="file" name="file" id="file" required>
+                            @error('file')
+                                <p class="text-red" style="color: red">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 

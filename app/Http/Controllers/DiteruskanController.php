@@ -18,11 +18,6 @@ class DiteruskanController extends Controller
         return view('dashboardDiteruskan.index');
     }
 
-    // public function dashboard($id)
-    // {
-    //     return 'ini adalah dashboard';
-    // }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -39,7 +34,6 @@ class DiteruskanController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
 
         // Validation : 
         $validated = $request->validate([
@@ -187,7 +181,7 @@ class DiteruskanController extends Controller
 
         return view('dashboardDiteruskan.edit', [
             'diteruskan' => $diteruskan,
-            'users' => User::all(),
+            'users' => User::where('permission', 1)->get(),
             'user_checked' => $users_cheked
         ]);
     }

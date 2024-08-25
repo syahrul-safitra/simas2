@@ -69,10 +69,10 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $suratKeluar->kode_klasifikasi }}</td>
-                                <td>{{ $suratKeluar->tanggal_surat_keluar }}</td>
+                                <td>{{ date('d-m-Y', strtotime($suratKeluar->tanggal_surat_keluar)) }}</td>
                                 <td>{{ $suratKeluar->sifat }}</td>
                                 <td>{{ $suratKeluar->isi }}</td>
-                                <td>{{ $suratKeluar->SuratMasuk ? $suratKeluar->SuratMasuk->instansi->nama : $suratKeluar->instansi->nama }}
+                                <td>{{ $suratKeluar->SuratMasuk ? $suratKeluar->SuratMasuk->asal_surat : $suratKeluar->tujuan }}
                                 </td>
                                 <td>{{ $suratKeluar->SuratMasuk ? $suratKeluar->SuratMasuk->no_surat : '' }}</td>
                                 <td>
@@ -104,12 +104,6 @@
                         @endforeach
                     </tbody>
                 </table>
-
-
-                {{-- link pagination --}}
-                <div class="d-flex flex-column">
-                    {{ $suratKeluars->links() }}
-                </div>
             </div>
         </div>
     </div>
