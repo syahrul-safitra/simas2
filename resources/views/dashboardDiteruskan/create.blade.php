@@ -10,6 +10,7 @@
                     {{ 'Mohon input check-box minimal 1' }}
                 </div>
             @enderror
+
             <form action="{{ url('dashboard/diteruskan') }}" method="POST">
                 @csrf
                 {{-- id --}}

@@ -24,13 +24,13 @@
                     <a href="{{ url('dashboard/disposisi/' . $disposisi->id) . '/edit' }} " class="btn btn-warning mb-3"><i
                             class="bi bi-pencil-square me-2"></i>Edit</a>
 
-                    <form action="{{ url('dashboard/disposisi/' . $disposisi->id) }}" method="POST">
+                    {{-- <form action="{{ url('dashboard/disposisi/' . $disposisi->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <div class="btn btn btn-danger mb-3 " id="btn-delete-disposisi">
                             <i class="bi bi-trash me-2"></i>Hapus
                         </div>
-                    </form>
+                    </form> --}}
                 @endif
             </div>
             <table class="table table-striped table-hover">
@@ -43,12 +43,12 @@
                     <tr>
                         <th scope="row" style="width: 30%">Asal Surat</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{{ $suratMasuk->instansi->nama }}</td>
+                        <td style="width: 65%">{{ $suratMasuk->asal_surat }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal Surat</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{{ $suratMasuk->tanggal_surat }}</td>
+                        <td style="width: 65%">{{ date('d-m-Y', strtotime($suratMasuk->tanggal_surat)) }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Indek</th>
@@ -63,7 +63,7 @@
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal Penyelesaian</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{!! $disposisi ? $disposisi->tanggal_penyelesaian : '' !!}</td>
+                        <td style="width: 65%">{!! $disposisi ? date('d-m-Y', strtotime($disposisi->tanggal_penyelesaian)) : '' !!}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Isi</th>
@@ -78,20 +78,28 @@
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{!! $disposisi ? $disposisi->tanggal : '' !!}</td>
+                        <td style="width: 65%">{!! $disposisi ? date('d-m-Y', strtotime($disposisi->tanggal)) : '' !!}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Pukul</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{!! $disposisi ? $disposisi->pukul->format('H:i') : '' !!}</td>
+                        <td style="width: 65%">{!! $disposisi ? ($disposisi->pukul ? $disposisi->pukul->format('H:i') : '') : '' !!}</td>
+                        {{-- <td style="width: 65%">{!! $disposisi ? $disposisi->pukul->format('H:i') : '' !!}</td>  --}}
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Diketahui</th>
                         <td style="width: 5%">:</td>
                         <td style="width: 65%">
                             @if ($disposisi)
+                                @php
+                                    $disampaikan = $disposisi->disampaikanKepada;
+
+                                    foreach ($disampaikan as $value) {
+                                        $dataKepada[] = $value->user_id;
+                                    }
+                                @endphp
                                 @foreach ($users as $user)
-                                    @if (in_array($user->id, json_decode($disposisi->diketahui)))
+                                    @if (in_array($user->id, $dataKepada))
                                         <p>{{ $user->name }}</p>
                                     @endif
                                 @endforeach

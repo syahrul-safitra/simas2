@@ -16,7 +16,7 @@ class SuratKeluarController extends Controller
     public function index()
     {
         return view('dashboardSuratKeluar.index', [
-            'suratKeluars' => SuratKeluar::latest()->get(),
+            'suratKeluars' => SuratKeluar::with('suratMasuk')->latest()->get(),
         ]);
     }
 

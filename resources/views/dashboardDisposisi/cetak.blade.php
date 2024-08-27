@@ -133,7 +133,7 @@
                 <tr>
                     <td>Tanggal</td>
                     <td>:</td>
-                    <td>{{ date('d-m-Y', strtotime($disposisi->tanggal)) }}</td>
+                    <td>{{ $disposisi->tanggal ? date('d-m-Y', strtotime($disposisi->tanggal)) : '' }}</td>
                 </tr>
 
                 <tr>
@@ -167,9 +167,16 @@
 
                     @php
                         $x = 1;
+
+                        $disampaikan = $disposisi->disampaikanKepada;
+
+                        foreach ($disampaikan as $value) {
+                            $dataKepada[] = $value->user_id;
+                        }
+
                     @endphp
                     @foreach ($users as $user)
-                        @if (in_array($user->id, json_decode($disposisi->diketahui)))
+                        @if (in_array($user->id, $dataKepada))
                             <p>{{ $x . '.' . $user->name }}</p>
                             @php
                                 $x++;
@@ -208,14 +215,15 @@
                         <tr>
                             <td>Tanggal</td>
                             <td>:</td>
-                            <td>{{ date('d-m-Y', strtotime($disposisi->tanggal)) }}</td>
+                            <td>{{ $disposisi->tanggal ? date('d-m-Y', strtotime($disposisi->tanggal)) : '' }}</td>
                         </tr>
 
                         <tr>
                             <td>Pukul</td>
                             <td>:</td>
                             {{-- <td>{{ date('h:i:s', strtotime($disposisi->pukul)) }} WIB</td> --}}
-                            <td>{{ $disposisi->pukul ? date('h:i:s', strtotime($disposisi->pukul)) : '' }} WIB</td>
+                            <td>{{ $disposisi->pukul ? date('h:i:s', strtotime($disposisi->pukul)) . ' WIB' : '' }}
+                            </td>
                         </tr>
                     </table>
                 </div>

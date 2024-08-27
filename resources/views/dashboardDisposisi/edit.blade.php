@@ -11,14 +11,21 @@
         </div>
     @endif --}}
     <form action="{{ url('dashboard/disposisi/' . $disposisi->id) }}" method="POST">
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @csrf
         @method('PUT')
         <!-- row 1 -->
         <div class="row">
             <div class="col-lg-6 mb-3">
                 <label for="no-surat" class="form-label">No Surat</label>
-                <input type="text" class="form-control" value="{{ $suratMasuk->no_surat }}" id="no-surat" autocomplete="off"
-                    readonly>
+                <input type="text" class="form-control" value="{{ $suratMasuk->no_surat }}" id="no-surat"
+                    autocomplete="off" readonly>
             </div>
             <div class="col-lg-6 mb-3">
                 <label for="asal-surat" class="form-label">Asal Surat</label>
@@ -60,8 +67,8 @@
             </div>
             <div class="col-lg-6 mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input type="date" class="form-control" name="tanggal" value="{{ @old('tanggal', $disposisi->tanggal) }}"
-                    id="tanggal">
+                <input type="date" class="form-control" name="tanggal"
+                    value="{{ @old('tanggal', $disposisi->tanggal) }}" id="tanggal">
                 @error('tanggal')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

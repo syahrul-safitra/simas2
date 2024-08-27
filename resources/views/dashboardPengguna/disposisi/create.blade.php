@@ -2,6 +2,13 @@
 
 @section('container')
     <form action="{{ url('dashboard/disposisi') }}" method="POST">
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @csrf
         {{-- input hidden no_surat_masuk --}}
         <input type="hidden" name="surat_masuk_id" value="{{ $suratMasuk->id }}">
@@ -15,7 +22,7 @@
             </div>
             <div class="col-lg-6 mb-3">
                 <label for="asal-surat" class="form-label">Asal Surat</label>
-                <input type="text" class="form-control" value="{{ $suratMasuk->instansi->nama }}" id="asal-surat"
+                <input type="text" class="form-control" value="{{ $suratMasuk->asal_surat }}" id="asal-surat"
                     autocomplete="off" readonly>
             </div>
         </div>
@@ -23,17 +30,17 @@
         <!-- row 2 -->
         <div class="row">
             <div class="col-lg-6 mb-3">
-                <label for="indek" class="form-label">Indek</label>
+                <label for="indek" class="form-label">Indek <span class="text-danger">*</span></label>
                 <input type="text" class="form-control @error('indek_berkas') is-invalid @enderror" name="indek_berkas"
                     value="{{ @old('indek_berkas') }}" id="indek" autocomplete="off">
-                @error('indek')
+                @error('indek_berkas')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="col-lg-6 mb-3">
-                <label for="kode" class="form-label">Kode</label>
-                <input type="text" class="form-control" name="kode_klasifikasi_arsip"
-                    value="{{ @old('kode_klasifikasi_arsip') }}" id="kode">
+                <label for="kode" class="form-label">Kode <span class="text-danger">*</span></label>
+                <input type="text" class="form-control @error('kode_klasifikasi_arsip') is-invalid @enderror"
+                    name="kode_klasifikasi_arsip" value="{{ @old('kode_klasifikasi_arsip') }}" id="kode">
                 @error('kode_klasifikasi_arsip')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -95,14 +102,16 @@
 
         <div class="row ">
             <div class="col-lg-12 mb-3">
-                @error('diketahui')
+                <label for="" class="form-label">Disampaikan Kepada <span class="text-danger">*</span></label>
+                @error('disampaikan_kepada')
                     <div class="alert alert-danger">
                         {{ 'Mohon input check-box minimal 1' }}
                     </div>
                 @enderror
                 @foreach ($users as $user)
                     <div class="d-block">
-                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}" name="diketahui[]"
+                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}"
+                            name="disampaikan_kepada[]"
                             {{ @old('diketahui') ? (in_array($user->id, @old('diketahui')) ? 'checked' : '') : '' }}>
                         <label class="form-check-label" for="{{ $user->name }}">{{ $user->name }}</label>
                     </div>

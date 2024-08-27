@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\DisampaikanKepadaController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardKasubagController;
 use App\Http\Controllers\SuratMasukController;
@@ -25,7 +27,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [DashboardKasubagController::class, 'index'])->middleware(['auth', 'master']);
 
 // Resource SuratMasuk Controller :
-Route::resource('dashboard/suratmasuk', SuratMasukController::class)->middleware('auth');
+Route::resource('dashboard/suratmasuk', SuratMasukController::class)->middleware(['auth', 'master']);
 Route::get('dashboard/suratmasuks/delete/{suratMasuk}', [SuratMasukController::class, 'delete'])->middleware('auth');
 Route::post('dashboard/suratmasuks/cetak', [SuratMasukController::class, 'cetak']);
 Route::get('carisuratmasuk', [SuratMasukController::class, 'cari1']);
@@ -50,6 +52,9 @@ Route::resource('dashboard/disposisi', DisposisiController::class)->middleware('
 Route::get('dashboard/disposisis/create/{suratMasuk}', [DisposisiController::class, 'create']);
 Route::get('dashboard/disposisis/delete/{disposisi}', [DisposisiController::class, 'delete']);
 Route::get('dashboard/disposisis/{disposisi}/cetak', [DisposisiController::class, 'cetak']);
+
+// Resource Surat yang disampaikan : ]
+Route::resource('dashboard/suratdisampaikan', DisampaikanKepadaController::class)->middleware('auth');
 
 // Route Pengguna : 
 Route::get('dashboard/pengguna', [PenggunaController::class, 'index'])->middleware('auth');
@@ -100,4 +105,3 @@ Route::get('testing', function () {
 Route::get('carbon', function () {
 
 });
-

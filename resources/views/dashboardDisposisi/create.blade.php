@@ -2,6 +2,13 @@
 
 @section('container')
     <form action="{{ url('dashboard/disposisi') }}" method="POST">
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @csrf
         {{-- input hidden no_surat_masuk --}}
         <input type="hidden" name="surat_masuk_id" value="{{ $suratMasuk->id }}">
@@ -103,7 +110,8 @@
                 @enderror
                 @foreach ($users as $user)
                     <div class="d-block">
-                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}" name="diketahui[]"
+                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}"
+                            name="disampaikan_kepada[]"
                             {{ @old('diketahui') ? (in_array($user->id, @old('diketahui')) ? 'checked' : '') : '' }}>
                         <label class="form-check-label" for="{{ $user->name }}">{{ $user->name }}</label>
                     </div>

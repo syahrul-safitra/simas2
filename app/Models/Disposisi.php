@@ -9,7 +9,7 @@ class Disposisi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['indek_berkas', 'kode_klasifikasi_arsip', 'tanggal_penyelesaian', 'isi', 'diketahui', 'kepada', 'tanggal', 'pukul', 'surat_masuk_id'];
+    protected $fillable = ['indek_berkas', 'kode_klasifikasi_arsip', 'tanggal_penyelesaian', 'isi', 'disampaikan_kepada', 'kepada', 'tanggal', 'pukul', 'surat_masuk_id'];
 
     protected $casts = [
         'pukul' => 'datetime'
@@ -18,5 +18,10 @@ class Disposisi extends Model
     public function suratMasuk()
     {
         return $this->belongsTo(SuratMasuk::class);
+    }
+
+    public function disampaikanKepada()
+    {
+        return $this->hasMany(DisampaikanKepada::class);
     }
 }

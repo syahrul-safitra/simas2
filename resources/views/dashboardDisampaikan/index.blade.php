@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="col-12">
-        <h4 class="mb-2"><i class="bi bi-envelope"></i> Surat dari KASUBAG</h4>
+        <h4 class="mb-2"><i class="bi bi-envelope me-3"></i>Lanjutan Disposisi</h4>
         {{-- Session Message --}}
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,28 +17,21 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Asal Surat</th>
-                            <th scope="col">Status</th>
                             <th scope="col">File</th>
                             <th scope="col">Disposisi</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($kepadaUsers as $kepadaUser)
+                        @foreach ($disposisiDisampaikan as $disampaikan)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $kepadaUser->diteruskan->suratMasuk->asal_surat }}</td>
-                                <td>{{ $kepadaUser->diteruskan->suratMasuk->status }}</td>
+                                <td>{{ $disampaikan->disposisi->suratMasuk->asal_surat }}</td>
+                                <td><a class="fs-4" style="color: red"
+                                        href="{{ asset('file/' . $disampaikan->disposisi->suratMasuk->file) }}"><i
+                                            class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                 <td>
-                                    <div class="d-flex justify-content-center">
-                                        <a class="fs-4" style="color: red"
-                                            href="{{ asset('file/' . $kepadaUser->diteruskan->suratMasuk->file) }}"><i
-                                                class="bi bi-file-earmark-pdf-fill"></i></a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="{{ url('dashboard/disposisi/' . $kepadaUser->diteruskan->suratMasuk->id) }}"
-                                        class="btn btn-success"
+                                    <a href="{{ url('dashboard/disposisi/' . $disampaikan->id) }}" class="btn btn-success"
                                         style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px"><i
                                             class="bi bi-file-earmark-arrow-up"></i></a>
                                 </td>

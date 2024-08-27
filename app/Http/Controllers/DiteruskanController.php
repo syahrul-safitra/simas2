@@ -109,40 +109,74 @@ class DiteruskanController extends Controller
         //     echo $error_msg;
         // }
 
-        $curl = curl_init();
+        // $curl = curl_init();
 
-        curl_setopt_array(
-            $curl,
-            array(
-                CURLOPT_URL => 'https://api.fonnte.com/send',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => array(
-                    'target' => '081213215911',
-                    'message' => 'test message',
-                    'countryCode' => '62', //optional
-                ),
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: 4-E_!DH-PoPo#H1_snd3' //change TOKEN to your actual token
-                ),
-            )
-        );
+        // curl_setopt_array(
+        //     $curl,
+        //     array(
+        //         CURLOPT_URL => 'https://api.fonnte.com/send',
+        //         CURLOPT_RETURNTRANSFER => true,
+        //         CURLOPT_ENCODING => '',
+        //         CURLOPT_MAXREDIRS => 10,
+        //         CURLOPT_TIMEOUT => 0,
+        //         CURLOPT_FOLLOWLOCATION => true,
+        //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //         CURLOPT_CUSTOMREQUEST => 'POST',
+        //         CURLOPT_POSTFIELDS => array(
+        //             'target' => '0822-6980-9619',
+        //             'message' => 'Ada surat masuk baru',
+        //             'countryCode' => '62', //optional
+        //         ),
+        //         CURLOPT_HTTPHEADER => array( //change TOKEN to your actual token
+        //             '4-E_!DH-PoPo#H1_snd3' //change TOKEN to your actual token
+        //         ),
+        //     )
+        // );
 
-        $response = curl_exec($curl);
-        if (curl_errno($curl)) {
-            $error_msg = curl_error($curl);
-        }
-        curl_close($curl);
+        // $response = curl_exec($curl);
+        // if (curl_errno($curl)) {
+        //     $error_msg = curl_error($curl);
+        // }
+        // curl_close($curl);
 
-        if (isset($error_msg)) {
-            echo $error_msg;
-        }
-        echo $response;
+        // if (isset($error_msg)) {
+        //     echo $error_msg;
+        // }
+        // echo $response;
+
+
+        // INI YANG BENER 
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => 'https://api.fonnte.com/send',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'POST',
+        //     CURLOPT_POSTFIELDS => array(
+        //         'target' => $nomor,
+        //         'message' => 'Assalamualaikum, ada surat masuk',
+        //         'countryCode' => '62', //optional
+        //     ),
+        //     CURLOPT_HTTPHEADER => array(
+        //         'Authorization: 4-E_!DH-PoPo#H1_snd3' //change TOKEN to your actual token
+        //     ),
+        // ));
+
+        // $response = curl_exec($curl);
+        // if (curl_errno($curl)) {
+        //     $error_msg = curl_error($curl);
+        // }
+        // curl_close($curl);
+
+        // if (isset($error_msg)) {
+        //     echo $error_msg;
+        // }
+        // echo $response;
 
         return redirect('dashboard/diteruskan/' . $validated['surat_masuk_id'])->with('success', 'Data diteruskan berhasil dibuat!');
     }

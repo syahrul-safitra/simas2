@@ -10,6 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
         <div class="bg-light rounded h-100 p-4">
             <div class="d-flex gap-2">
 
@@ -56,7 +57,7 @@
                     <tr>
                         <th scope="row" style="width: 30%">Tanggal Surat</th>
                         <td style="width: 5%">:</td>
-                        <td style="width: 65%">{{ $suratMasuk->tanggal_surat }}</td>
+                        <td style="width: 65%">{{ date('d-m-Y', strtotime($suratMasuk->tanggal_surat)) }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="width: 30%">Indek</th>
@@ -100,12 +101,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row" style="width: 30%">Diketahui</th>
+                        <th scope="row" style="width: 30%">Disampaikan Kepada</th>
                         <td style="width: 5%">:</td>
                         <td style="width: 65%">
+
                             @if ($disposisi)
+                                @php
+                                    $disampaikan = $disposisi->disampaikanKepada;
+
+                                    foreach ($disampaikan as $value) {
+                                        $dataKepada[] = $value->user_id;
+                                    }
+                                @endphp
                                 @foreach ($users as $user)
-                                    @if (in_array($user->id, json_decode($disposisi->diketahui)))
+                                    @if (in_array($user->id, $dataKepada))
                                         <p>{{ $user->name }}</p>
                                     @endif
                                 @endforeach
