@@ -12,6 +12,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InformasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,14 +29,14 @@ Route::get('/', [DashboardKasubagController::class, 'index'])->middleware(['auth
 
 // Resource SuratMasuk Controller :
 Route::resource('dashboard/suratmasuk', SuratMasukController::class)->middleware(['auth', 'master']);
-Route::get('dashboard/suratmasuks/delete/{suratMasuk}', [SuratMasukController::class, 'delete'])->middleware('auth');
+// Route::get('dashboard/suratmasuks/delete/{suratMasuk}', [SuratMasukController::class, 'delete'])->middleware('auth');
 Route::post('dashboard/suratmasuks/cetak', [SuratMasukController::class, 'cetak']);
 Route::get('carisuratmasuk', [SuratMasukController::class, 'cari1']);
 Route::get('carisuratmasuk/ajax', [SuratMasukController::class, 'ajax']);
 
 // Resource SuratKeluar Controller : 
 Route::resource('dashboard/suratkeluar', SuratKeluarController::class)->middleware(['auth', 'master']);
-Route::get('dashboard/suratkeluars/delete/{suratkeluar}', [SuratKeluarController::class, 'delete']);
+// Route::get('dashboard/suratkeluars/delete/{suratkeluar}', [SuratKeluarController::class, 'delete']);
 
 
 Route::get('dashboard/suratkeluars/replyLetter', [SuratKeluarController::class, 'replyLetter'])->middleware(['auth', 'master']);
@@ -55,6 +56,9 @@ Route::get('dashboard/disposisis/{disposisi}/cetak', [DisposisiController::class
 
 // Resource Surat yang disampaikan : ]
 Route::resource('dashboard/suratdisampaikan', DisampaikanKepadaController::class)->middleware('auth');
+
+// Resource Informasi : 
+Route::resource('dashboard/informasi', InformasiController::class)->middleware(['auth', 'kasubag']);
 
 // Route Pengguna : 
 Route::get('dashboard/pengguna', [PenggunaController::class, 'index'])->middleware('auth');

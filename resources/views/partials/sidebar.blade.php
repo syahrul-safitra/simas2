@@ -34,10 +34,20 @@
                         class="fas fa-users"></i>User</a>
             @endcan
 
+            @can('kasubag')
+                <a href="{{ url('/dashboard/informasi') }}"
+                    class="nav-item nav-link {{ Request::is('dashboard/informasi*') ? 'active' : '' }}"><i
+                        class="far fa-newspaper"></i>Informasi</a>
+            @endcan
+
             @can('permission')
                 <a href="{{ url('/dashboard/pengguna') }}"
                     class="nav-item nav-link {{ Request::is('dashboard/pengguna*') ? 'active' : '' }}"><i
-                        class="bi bi-file-earmark-text-fill me-2"></i>Surat</a>
+                        class="bi bi-file-earmark-text-fill me-2"></i>Surat dari KSBG</a>
+
+                <a href="{{ url('/dashboard/suratdisampaikan') }}"
+                    class="nav-item nav-link {{ Request::is('dashboard/suratdisampaikan*') ? 'active' : '' }}"><i
+                        class="bi bi-file-earmark-text-fill me-2"></i>Lanjutan Disposisi</a>
             @endcan
     </nav>
 </div>

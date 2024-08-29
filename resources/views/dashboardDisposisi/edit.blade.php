@@ -1,15 +1,6 @@
 @extends('layouts.main')
 
 @section('container')
-    {{-- @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
     <form action="{{ url('dashboard/disposisi/' . $disposisi->id) }}" method="POST">
 
         @if (session()->has('error'))
@@ -125,10 +116,16 @@
                         {{ 'Mohon input check-box minimal 1' }}
                     </div>
                 @enderror
+                @php
+                    foreach ($disposisi->disampaikanKepada as $user) {
+                        $disampaikan[] = $user->user_id;
+                    }
+                @endphp
                 @foreach ($users as $user)
                     <div class="d-block">
-                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}" name="diketahui[]"
-                            {{ @old('diketahui', $disposisi->diketahui) ? (in_array($user->id, $disposisi->diketahui) ? 'checked' : '') : '' }}>
+                        <input type="checkbox" class="form-check-input" value="{{ $user->id }}"
+                            name="disampaikan_kepada[]"
+                            {{ @old('diketahui', $disampaikan) ? (in_array($user->id, $disampaikan) ? 'checked' : '') : '' }}>
                         <label class="form-check-label" for="{{ $user->name }}">{{ $user->name }}</label>
                     </div>
                 @endforeach

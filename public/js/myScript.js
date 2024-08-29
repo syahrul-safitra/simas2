@@ -137,6 +137,25 @@ $(document).ready(function () {
 
    })
 
+   $('.btn-delete-informasi').on('click', function(e) {
+      e.preventDefault();
+
+      let form = $(this).closest('form');
+
+      swal({
+         title: "Apakah anda yakin?",
+         text: "Data surat keluar akan dihapus",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+      
+      }).then((willdelete) => {
+         if(willdelete) {
+            form.submit();
+         }
+      })
+   })
+
    $('#search').on('keyup', function (e) {
       e.preventDefault();
 

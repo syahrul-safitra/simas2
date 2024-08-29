@@ -49,8 +49,8 @@ class DisposisiController extends Controller
 
         // validation data : 
         $validated = $request->validate([
-            'indek_berkas' => 'required|unique:disposisis',
-            'kode_klasifikasi_arsip' => 'required',
+            'indek_berkas' => '',
+            'kode_klasifikasi_arsip' => '',
             'tanggal_penyelesaian' => '',
             'tanggal' => '',
             'kepada' => '',
@@ -101,13 +101,13 @@ class DisposisiController extends Controller
     public function show($id)
     {
 
-        $disposisi = Disposisi::with('disampaikanKepada')->where('surat_masuk_id', $id)->first();
+        // $disposisi = Disposisi::with('disampaikanKepada')->where('surat_masuk_id', $id)->first();
 
         $getDisposisi = null;
 
         // cek apakah data ada atau tidak :
         if (Disposisi::where('surat_masuk_id', $id)->first()) {
-            $getDisposisi = Disposisi::where('surat_masuk_id', $id)->first();
+            $getDisposisi = Disposisi::with('disampaikanKepada')->where('surat_masuk_id', $id)->first();
         }
 
         if (Auth::user()->level == 'master') {
@@ -134,8 +134,6 @@ class DisposisiController extends Controller
         } else {
             $view = 'dashboardPengguna.disposisi.edit';
         }
-
-        $disposisi->diketahui = json_decode($disposisi->diketahui);
 
         return view($view, [
             'suratMasuk' => SuratMasuk::find($disposisi->surat_masuk_id),

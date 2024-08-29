@@ -1,4 +1,4 @@
-@extends('dashboardPengguna.layouts.main')
+@extends('layouts.main')
 
 @section('container')
     <div class="col-12">
@@ -31,7 +31,7 @@
                                         href="{{ asset('file/' . $disampaikan->disposisi->suratMasuk->file) }}"><i
                                             class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                 <td>
-                                    <a href="{{ url('dashboard/disposisi/' . $disampaikan->disposisi->suratMasuk->id) }}"
+                                    <a href="{{ url('dashboard/disposisi/' . $disampaikan->disposisi->surat_masuk_id) }}"
                                         class="btn btn-success"
                                         style="padding-top: 2px; padding-bottom: 2px; padding-left: 5px; padding-right: 5px"><i
                                             class="bi bi-file-earmark-arrow-up"></i></a>

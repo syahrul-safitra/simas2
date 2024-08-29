@@ -12,7 +12,14 @@ class DisampaikanKepadaController extends Controller
      */
     public function index()
     {
-        return view('dashboardDisampaikan.index', [
+
+        if (auth()->user()->level == 'master') {
+            $view = 'dashboardDisampaikan.indexStaff';
+        } else {
+            $view = 'dashboardDisampaikan.index';
+        }
+
+        return view($view, [
             'disposisiDisampaikan' => DisampaikanKepada::with('disposisi.suratMasuk')->where('user_id', auth()->user()->id)->latest()->get()
         ]);
     }
